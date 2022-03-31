@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created in 2022/3/12 16:05-->
+<!--映射文件-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--约束-->
+
+<mapper namespace="com.huarui.dao.StudentDao"> <!--命名域-->
+
+    <insert id="insertStudent">
+        insert into table_student(name, age) value (#{name}, #{age})
+    </insert>
+
+    <!--id表示方法的名称； resultType表示查询结果的类型，因为在mybatis.xml文件中已经取了别名，所以可以直接用类名Student-->
+    <select id="selectStudents" resultType="Student">
+        select id, name, age
+        from table_student
+        where id = #{id}
+        order by id desc
+    </select>
+
+
+</mapper>

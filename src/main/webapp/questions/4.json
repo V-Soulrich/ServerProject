@@ -1,0 +1,8 @@
+{
+  "id": 4,
+  "type": 4,
+  "content": "1+1=2？",
+  "answer": true,
+  "explanation": "1+1=2",
+  "score": 10
+}

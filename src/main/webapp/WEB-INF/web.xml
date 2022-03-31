@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <!--中央调度器-->
+    <servlet>
+        <servlet-name>MyWeb</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--自定义SpringMVC读取的配置文件的位置-->
+        <init-param>
+            <!--SpringMVC配置文件的属性-->
+            <param-name>contextConfigLocation</param-name>
+            <!--指定自定义文件的位置-->
+            <param-value>classpath:conf/dispatcherServlet.xml</param-value>
+        </init-param>
+
+        <!--在TomCat启动以后，创建Servlet对象，
+            load-on-startup：表示启动后创建对象的顺序，数字越小，越早创建-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--映射-->
+    <servlet-mapping>
+        <servlet-name>MyWeb</servlet-name>
+        <url-pattern>*.do</url-pattern>
+        <!--url-pattern的取值
+        1.使用扩展名方式，语法格式 *.xxx，xxx是自定义的扩展名。
+          常用的扩展名有*.do，*.action，*.mvc等
+          不能使用*.jsp
+        2.使用斜杠"/"-->
+    </servlet-mapping>
+
+    <!--注册Spring的监听器-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:conf/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--注册字符集过滤器-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!--过滤器映射-->
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Spring的配置文件，声明Service，Dao，工具类等对象-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:conf/jdbc_mysql.properties"/>
+    <!--声明数据源，连接数据库-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--SqlSessionFactoryBean创建SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource"
+                  ref="dataSource"/> <!--把上面定义的数据源对象拿来赋值给SqlSessionFactoryBean里的private DataSource dataSource;这个属性-->
+        <property name="configLocation" value="classpath:conf/mybatis.xml"/> <!--指定类路径下的某个文件，特殊记忆即可-->
+    </bean>
+
+    <!--声明mybatis的扫描器，创建dao对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.huarui.dao"/> <!--这样dao包中的所有接口都可以创建对象，即可访问数据库-->
+    </bean>
+
+    <!--声明service的注解@Service所在报名的位置-->
+    <context:component-scan base-package="com.huarui.service"/>
+
+    <!--事务配置：注解的配置，或aspectj的配置-->
+    <!--todo 后期再加事务-->
+</beans>

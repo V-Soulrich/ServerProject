@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created in 2022/3/18 19:43-->
+<!--映射文件-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--约束-->
+
+<mapper namespace="com.huarui.dao.QuestionDao"> <!--命名域-->
+
+    <select id="getQuestionByQuesID" resultType="Question">
+        SELECT table_question.id,
+               table_question.type,
+               table_question.file_name
+        FROM myinterclass.table_question
+        WHERE table_question.id = #{quesID};
+    </select>
+
+    <select id="getQuestionsByTaskID" resultType="Question">
+        SELECT table_question.id,
+               table_question.type,
+               table_question.file_name
+        FROM myinterclass.table_question,
+             myinterclass.task_question
+        WHERE table_question.id = task_question.question_id
+          AND task_question.task_id = #{taskID};
+    </select>
+
+</mapper>

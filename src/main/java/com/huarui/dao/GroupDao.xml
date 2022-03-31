@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created in 2022/3/16 15:50-->
+<!--映射文件-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--约束-->
+
+<mapper namespace="com.huarui.dao.GroupDao"> <!--命名域-->
+
+    <select id="getGroupsByStuID" resultType="Group">
+        SELECT table_group.id,
+               table_group.name,
+               table_group.icon_url
+        FROM myinterclass.table_group,
+             myinterclass.student_group
+        WHERE table_group.id = student_group.group_id
+          AND student_group.student_id = #{stuID};
+    </select>
+
+    <select id="getGroupsByTeaID" resultType="Group">
+        SELECT table_group.id,
+               table_group.name,
+               table_group.icon_url
+        FROM myinterclass.table_group,
+             myinterclass.teacher_group
+        WHERE table_group.id = teacher_group.group_id
+          AND teacher_group.teacher_id = #{teaID};
+    </select>
+</mapper>

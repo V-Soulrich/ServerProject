@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created in 2022/3/17 23:11-->
+<!--映射文件-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!--约束-->
+
+<mapper namespace="com.huarui.dao.TaskDao"> <!--命名域-->
+
+    <select id="getTasksByStuID" resultType="Task">
+        SELECT table_task.id,
+               table_task.name,
+               DATE_FORMAT(table_task.create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+               table_task.creator_id
+        FROM myinterclass.table_task,
+             myinterclass.student_task
+        WHERE table_task.id = student_task.task_id
+          AND student_task.student_id = #{stuID};
+    </select>
+
+    <select id="getTasksByTeaID" resultType="Task">
+        SELECT table_task.id,
+               table_task.name,
+               DATE_FORMAT(table_task.create_time,
+                           '%Y-%m-%d %H:%i:%s') AS create_time,
+               table_task.creator_id
+        FROM myinterclass.table_task
+        WHERE creator_id = #{teaID};
+    </select>
+
+</mapper>

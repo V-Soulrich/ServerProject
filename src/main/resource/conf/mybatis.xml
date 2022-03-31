@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-config.dtd">
+<!--MyBatis主配置文件-->
+<configuration>
+
+    <!--settings：控制MyBatis全局行为-->
+    <!--    <settings>
+            &lt;!&ndash;设置mybatis输出日志&ndash;&gt;
+            <setting name="logImpl" value="STDOUT_LOGGING"/>
+        </settings>-->
+
+    <!--设置别名-->
+    <typeAliases>
+        <!--name：实体类所在的包名（不是实体类的包名也可以）-->
+        <package name="com.huarui.bean"/>
+    </typeAliases>
+
+    <!--sql mapper（sql映射文件）的位置-->
+    <mappers>
+        <!--name：包名，这个包中所包含的所以mapper.xml一次都能被加载
+            使用package的要求：
+                1.mapper文件名称和dao接口的名称必须完全一样，包括大小写
+                2.mapper文件和接口必须在同一目录-->
+        <package name="com.huarui.dao"/>
+    </mappers>
+
+
+    <!-- 配置分页插件 5.1.0 -->
+    <!--    <plugins>
+            <plugin interceptor="com.github.pagehelper.PageInterceptor">
+                &lt;!&ndash; 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库       &ndash;&gt;
+                <property name="helperDialect" value="mysql"/>
+            </plugin>
+        </plugins>-->
+
+</configuration>
